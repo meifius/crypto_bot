@@ -108,7 +108,9 @@ bot.action(priceActionList, async ctx => {
         bot.telegram.sendMessage(ctx.chat.id, message, {
             reply_markup : {
                 inline_keyboard : [
-                    {text : 'Back to prices', callback_data : 'price'}
+                    [
+                        {text : 'Back to prices', callback_data : 'price'}
+                    ]
                 ]
             }
         });
