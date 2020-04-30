@@ -105,13 +105,13 @@ bot.action(priceActionList, async ctx => {
         `
 
         ctx.deleteMessage();
-        bot.telegram.sendMessage(ctx.chat.id, message), {
+        bot.telegram.sendMessage(ctx.chat.id, message, {
             reply_markup : {
                 inline_keyboard : [
                     {text : 'Back to prices', callback_data : 'price'}
                 ]
             }
-        };
+        });
 
     }catch(error){
         console.log(error);
