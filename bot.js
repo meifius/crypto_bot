@@ -111,7 +111,7 @@ bot.action(priceActionList, async ctx => {
                     {text : 'Back to prices', callback_data : 'price'}
                 ]
             }
-        };
+        });
 
     }catch(error){
         console.log(error);
