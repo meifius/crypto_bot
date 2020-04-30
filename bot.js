@@ -123,6 +123,31 @@ bot.action(priceActionList, async ctx => {
     // https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD
 });
 
+//
+bot.command('info', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id, 'Bot Info', {
+        reply_markup : {
+            keyboard : [
+                [
+                    {text : 'Credits'},
+                    {text : 'API'},
+                ]
+            ],
+            resize_keyboard : true,
+            one_time_keyboard : true
+        }
+    });
+});
+
+//
+    bot.hears('Credits', ctx => {
+        ctx.reply('This bot was made by @meifius');
+    });
+
+    //
+    bot.hears('API', ctx => {
+        ctx.reply('This bot uses cryptocompare API');
+    });
 
 // --------------------------------------------------------
 // test command
