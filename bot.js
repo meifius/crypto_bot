@@ -83,6 +83,44 @@ bot.action('start', ctx => {
     sendStartMessage(ctx);
 });
 
+//
+let priceActionList = ['price-BTC', 'price-ETH', 'price-BCH', 'price-LTC'];
+bot.action(priceActionList, async ctx => {
+    let symbol = ctx.match.split("-")[1];
+
+    //
+    try{
+        let res = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD&api_key=${process.env.API_KEY_CRYPTO}`)
+        let data = res.data.DISPLAY[symbol].USD;
+
+        let message = 
+        `
+        Symbol : ${symbol}
+        Price : ${data.PRICE}
+        Open: ${data.OPENDAY}
+        High: ${data.HIGHDAY}
+        Low: ${data.LOWDAY}
+        Supply: ${data.SUPPLY}
+        Market Cap: ${data.MKTCAP}
+        `
+
+        ctx.deleteMessage();
+        bot.telegram.sendMessage(ctx.chat.id, message), {
+            reply_markup : {
+                inline_keyboard : [
+                    {text : 'Back to prices', callback_data : 'price'}
+                ]
+            }
+        };
+
+    }catch(error){
+        console.log(error);
+        ctx.reply('Error has encountered');
+    }
+    
+    // https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD
+});
+
 
 // --------------------------------------------------------
 // test command
