@@ -86,11 +86,11 @@ bot.action('start', ctx => {
 //
 let priceActionList = ['price-BTC', 'price-ETH', 'price-BCH', 'price-LTC'];
 bot.action(priceActionList, async ctx => {
-    let symbol = ctx.match.split("-")[1];
+    let symbol = ctx.match.split('-')[1];
 
     //
     try{
-        let res = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD&api_key=${process.env.API_KEY_CRYPTO}`)
+        let res = await axios.get(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${symbol}&tsyms=USD&api_key=${process.env.API_KEY_CRYPTO}`)
         let data = res.data.DISPLAY[symbol].USD;
 
         let message = 
