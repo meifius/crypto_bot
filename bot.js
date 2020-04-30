@@ -19,7 +19,7 @@ Welcome, this bot gives you cryptocurrency information.
 
 /start - 
 /help - 
-
+/info - 
 -----------
 /test - 
 `
@@ -35,6 +35,9 @@ const sendStartMessage = (ctx) => {
                     ],
                     [
                         {text : 'Coin Market Cap', url : 'https://coinmarketcap.com/'}
+                    ],
+                    [
+                        {text : 'Bot Info', callback_data : 'info'}
                     ],
                 ]
             }
@@ -124,14 +127,18 @@ bot.action(priceActionList, async ctx => {
 });
 
 //
-bot.command('info', ctx => {
+bot.action('info', ctx => {
+    ctx.answerCbQuery();
     bot.telegram.sendMessage(ctx.chat.id, 'Bot Info', {
         reply_markup : {
             keyboard : [
                 [
                     {text : 'Credits'},
                     {text : 'API'},
-                ]
+                ],
+                [
+                    {text : 'Remove Keyboard'}
+                ],
             ],
             resize_keyboard : true,
             one_time_keyboard : true
@@ -147,6 +154,15 @@ bot.command('info', ctx => {
     //
     bot.hears('API', ctx => {
         ctx.reply('This bot uses cryptocompare API');
+    });
+    
+    //
+    bot.hears('Remove Keyboard', ctx => {
+        bot.telegram.sendMessage(ctx.chat.id, 'Remove Keyboard', {
+            reply_markup : {
+                remove_keyboard : true
+            }
+        });
     });
 
 // --------------------------------------------------------
