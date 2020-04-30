@@ -24,12 +24,8 @@ Welcome, this bot gives you cryptocurrency information.
 /test - 
 `
 
-// Create a new bot
-const bot = new Telegraf(process.env.TOKEN);
-
-// BOT's CODE
-// start and help command
-bot.command(['start', 'help'], ctx => {
+// FUNCTIONS
+const sendStartMessage = (ctx) => {
     bot.telegram.sendMessage(ctx.chat.id, textHelp, 
         {
             reply_markup : {
@@ -44,13 +40,22 @@ bot.command(['start', 'help'], ctx => {
             }
         }
     );
+}
+
+// Create a new bot
+const bot = new Telegraf(process.env.TOKEN);
+
+// BOT's CODE
+// start and help command
+bot.command(['start', 'help'], ctx => {
+    sendStartMessage(ctx);
 });
 
 // price action
 bot.action('price', ctx => {
-    let priceMessage = `Get price information. Select one of the cryptocurrencies below`;
     ctx.deleteMessage();
 
+    let priceMessage = `Get price information. Select one of the cryptocurrencies below`;
     bot.telegram.sendMessage(ctx.chat.id, priceMessage, 
         {
             reply_markup : {
@@ -70,6 +75,12 @@ bot.action('price', ctx => {
             }
         }
     );
+});
+
+// start action
+bot.action('start', ctx => {
+    ctx.deleteMessage();
+    sendStartMessage(ctx);
 });
 
 
