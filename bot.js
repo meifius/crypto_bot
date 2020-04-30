@@ -46,8 +46,31 @@ bot.command(['start', 'help'], ctx => {
     );
 });
 
-//  command
+// price action
+bot.action('price', ctx => {
+    let priceMessage = `Get price information. Select one of the cryptocurrencies below`;
+    ctx.deleteMessage();
 
+    bot.telegram.sendMessage(ctx.chat.id, priceMessage, 
+        {
+            reply_markup : {
+                inline_keyboard : [
+                    [
+                        {text : 'BTC', callback_data : 'price-BTC'},
+                        {text : 'ETH', callback_data : 'price-ETH'},
+                    ],
+                    [
+                        {text : 'BCH', callback_data : 'price-BCH'},
+                        {text : 'LTC', callback_data : 'price-LTC'},
+                    ],
+                    [
+                        {text : 'Back to Menu', callback_data : 'start'},
+                    ],
+                ]
+            }
+        }
+    );
+});
 
 
 // --------------------------------------------------------
